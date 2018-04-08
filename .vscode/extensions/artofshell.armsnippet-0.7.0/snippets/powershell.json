@@ -1,0 +1,70 @@
+/* 
+    Author: Trevor Sullivan <trevor@artofshell.com>
+    Copyright: 2016, Art of Shell LLC
+    Description: This file contains PowerShell code snippets for Microsoft Azure Resource Manager (ARM)
+*/
+{
+    "arm-deploytemplate": {
+        "prefix": "arm-deploytemplate",
+        "description": "Deploy a Microsoft Azure Resource Manager (ARM) JSON Template from a URL.",
+        "body": [
+            "#region Authenticate to Microsoft Azure",
+            "$AzureUsername = '${AzureADUsername:trevor@artofshell.com}';",
+            "$AzureCredential = Get-Credential -Message 'Please enter your Microsoft Azure Active Directory (AAD) password.' -UserName $AzureUsername;",
+            "Add-AzureRmAccount -Credential $AzureCredential;",
+            "#endregion",
+            "",
+            "#region Create a new Azure Resource Manager (ARM) Resource Group",
+            "$ResourceGroup = @{",
+            "    Name = '${ResourceGroupName:ArtofShell}';",
+            "    Location = 'West US';",
+            "    Force = $true;",
+            "}",
+            "New-AzureRmResourceGroup @ResourceGroup;",
+            "#endregion",
+            "",
+            "#region Deploy an Azure Resource Manager (ARM) JSON Tepmlate",
+            "$Deployment = @{",
+            "    ResourceGroupName = $ResourceGroup.Name ### This is the Resource Group where the ARM JSON Template will be deployed into",
+            "    Name = '${DeploymentName:LinuxVM}';   ### (optional) This is the name of the Deployment object that will be created inside the Resource Group",
+            "    TemplateUri = '${TemplateUri:PasteYourTemplateURI}';            ### The URL to the publicly (anonymously) accessible ARM JSON Template file",
+            "    TemplateParameterObject = @{ ### These are the input parameters that are fed to the ARM Template",
+            "        ${Param1:ParameterName1} = '${Value1:ParameterValue}';",
+            "        ${Param2:ParameterName2} = '${Value2:ParameterValue}';",
+            "    }",
+            "    Mode = 'Incremental';        ### You can perform an \"incremental\" deployment or a \"complete\" deployment, ",
+            "                                 ### the latter of which wipes out all existing resources in the target Resource Group.",
+            "    DeploymentDebugLevel = 'All';",
+            "    Force = $true;",
+            "}",
+            "New-AzureRmResourceGroupDeployment @Deployment;",
+            "#endregion"
+        ]
+    },
+    "arm-core-authenticate": {
+        "prefix": "arm-core-authenticate",
+        "description": "Authenticate to Microsoft Azure Resource Manager (ARM) from PowerShell.",
+        "body": [
+            "### Authenticate to Microsoft Azure using Azure Active Directory (AAD)",
+            "$AzureUsername = 'trevor@artofshell.com';",
+            "$AzureCredential = Get-Credential -Username $AzureUsername -Message 'Please enter your Microsoft Azure password.';",
+            "Add-AzureRmAccount -Credential $AzureCredential"
+        ]
+    },
+    "arm-automation-create-account":  {
+        "prefix":  "arm-automation-create-account",
+        "body":  "### Create a new Microsoft Azure Automation Account\n$AutomationAccount = @{\n    ResourceGroupName = $ResourceGroup.Name;\n    Name = \u0027\u0027;\n    Location = \u0027West US\u0027;\n    Plan = \u0027Free\u0027; ### Basic is also supported\n    Tags = @(\n        @{ Name = \u0027Company\u0027; Value = \u0027Art of Shell\u0027; };\n        @{ Name = \u0027Department\u0027; Value = \u0027Finance\u0027; };\n        )\n    };\nNew-AzureRmAutomationAccount @AutomationAccount;",
+        "description":  "This snippet enables you to rapidly deploy a Microsoft Azure Resource Manager (ARM) Automation Account."
+    },
+    "arm-automation-import-runbook":  {
+        "prefix":  "arm-automation-import-runbook",
+        "body":  "### Import an Azure Automation Runbook\n$Runbook = @{\n    AutomationAccountName = $AutomationAccount.Name;\n    Path = \u0027{0}\\02-RunbookExample.ps1\u0027 -f $PSScriptRoot;\n    Description = \u0027This is an example Runbook\u0027;\n    Type = \u0027PowerShell\u0027;\n    Published = $true;\n    Force = $true;\n    };\nImport-AzureRmAutomationRunbook @Runbook;",
+        "description":  "This snippet enables you to rapidly import a Microsoft Azure Resource Manager (ARM) Automation Runbook."
+    },
+    "arm-core-resourcegroup":  {
+        "prefix":  "arm-core-resourcegroup",
+        "body":  "$ResourceGroup = @{\n    Name = \u0027\u0027;\n    Location = \u0027West US\u0027;\n    Force = $true;\n}\nNew-AzureRmResourceGroup @ResourceGroup;",
+        "description":  "This snippet enables you to rapidly deploy a Microsoft Azure Resource Manager (ARM) Resource Group."
+    }
+
+}

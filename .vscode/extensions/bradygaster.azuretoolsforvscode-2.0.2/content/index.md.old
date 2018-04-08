@@ -1,0 +1,22 @@
+# Azure Tools for Visual Studio Code v 2.0.0
+---
+
+V2 of the Azure Tools removes Azure App Service, Azure Functions, and Azure Storage features, as those features are better represented in official extensions that provide great support for these service areas. 
+
+To mitigate the loss of features that have been deprecated from this extension in V2, we've taken a dependency on the official extensions that support the features previously provided by this extension. 
+
+* [Azure App Service](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azureappservice)
+* [Azure Functions](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions)
+* [Azure Storage](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurestorage)
+
+Read more about the history of this deprecation and future plans [here](http://www.bradygaster.com/posts/azure-tools-for-vs-code-2-0-0). 
+
+You can also find other great extensions that make Azure development easier in the Visual Studio Marketplace, like these:
+
+* [Azure CLI Tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.azurecli)
+* [Azure Cosmos DB](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-cosmosdb)
+* [Docker](https://marketplace.visualstudio.com/items?itemName=PeterJausovec.vscode-docker)
+* [Kubernetes](https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools)
+* [mssql](https://marketplace.visualstudio.com/items?itemName=ms-mssql.mssql)
+* [Azure Resource Manager Tools](https://marketplace.visualstudio.com/items?itemName=msazurermtools.azurerm-vscode-tools)
+* [Azure IoT Toolkit](https://marketplace.visualstudio.com/items?itemName=vsciot-vscode.azure-iot-toolkit)

@@ -1,0 +1,279 @@
+{
+/*
+	 // Place your snippets for JSON here. Each snippet is defined under a snippet name and has a prefix, body and 
+	 // description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	 // $1, $2 for tab stops, ${id} and ${id:label} and ${1:label} for variables. Variables with the same id are connected.
+	 // Example:
+	 "Print to console": {
+		"prefix": "log",
+		"body": [
+			"console.log('$1');",
+			"$2"
+		],
+		"description": "Log output to console"
+	}
+*/
+	"arm-template": {
+		"prefix": "arm",
+		"description": "Microsoft Azure Resource Manager (ARM) JSON Template structure",
+		"body": [
+			"{",
+			"  \"$schema\": \"https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#\",",
+			"  \"contentVersion\": \"1.0.0.0\",",
+			"  \"parameters\": { },",
+			"  \"variables\": { },",
+			"  \"resources\": [ ],",
+			"  \"outputs\": { }",
+			"}"
+		]
+	},
+	"arm-storageaccount": {
+		"prefix": "arm-storageaccount",
+		"description": "",
+		"body": [
+			"      {",
+			"          \"type\": \"Microsoft.Storage/storageAccounts\",",
+			"          \"apiVersion\": \"2015-06-15\",",
+			"          \"location\": \"<FillMeIn>\",",
+			"          \"name\": \"<FillMeIn>\",",
+			"          \"tags\": {",
+			"              \"Company\": \"Art of Shell LLC\",",
+			"              \"Website\": \"https://artofshell.com\"",
+			"          },",
+			"          \"properties\": {",
+			"              \"accountType\": \"Standard_LRS\"",
+			"          }",
+			"      }"
+		]
+	},
+    "arm-availabilityset":  {
+		"prefix":  "arm-availabilityset",
+		"body":  [ 
+			"  {",
+			"    \"type\": \"Microsoft.Compute/availabilitySets\",",
+			"    \"apiVersion\": \"2015-06-15\",",
+			"    \"location\": \"West US\",",
+			"    \"name\": \"ArtofShellAVSet\",",
+			"    \"properties\": {",
+			"    \"platformFaultDomainCount\": 3,",
+			"    \"platformUpdateDomainCount\": 5,",
+			"    }",
+			"  }"
+		],
+		"description":  "This snippet adds a Microsoft Azure Resource Manager (ARM) Availability Set resource."
+	},
+    "arm-documentdb":  {
+		"prefix":  "arm-documentdb",
+		"body":  [
+			"      {",
+			"    \"type\": \"Microsoft.DocumentDB/databaseAccounts\",",
+			"    \"apiVersion\": \"2015-04-08\",",
+			"    \"name\": \"artofshell-docdb\",",
+			"    \"location\": \"West US\",",
+			"    \"properties\": {",
+			"        \"consistencyPolicy\": {",
+			"            \"maxIntervalInSeconds\": 30,",
+			"            \"defaultConsistencyLevel\": \"BoundedStaleness\",",
+			"            \"maxStalenessPrefix\": \"\"",
+			"        },",
+			"        \"databaseAccountOfferType\": \"Standard\",",
+			"        \"name\": \"artofshell\"",
+			"    }",
+			"      }"
+		],
+		"description":  "This snippet adds a Microsoft Azure Resource Manager (ARM) DocumentDB resource."
+	},
+    "arm-networkinterface":  {
+		"prefix":  "arm-networkinterface",
+		"body":  [
+			"      {",
+			"    \"type\": \"Microsoft.Network/networkInterfaces\",",
+			"    \"apiVersion\": \"2016-03-30\",",
+			"    \"location\": \"West US\",",
+			"    \"name\": \"nic-web01\",",
+			"    \"properties\": {",
+			"        \"networkSecurityGroup\": {",
+			"            \"id\": \"\u003cResourceIdOfNetworkSecurityGroup\u003e\"",
+			"        }",
+			"        \"dnsSettings\": {",
+			"            \"dnsServers\": [",
+			"                \"8.8.8.8\",",
+			"                \"8.8.4.4\"",
+			"            ]",
+			"        },",
+			"        \"enableIPForwarding\": false,",
+			"        \"ipConfigurations\": [            {",
+			"                \"name\": \"ipconfig1\",",
+			"                \"properties\": {",
+			"                    \"loadBalancerBackendAddressPools\": [",
+			"                        \"WebServers\"",
+			"                    ],",
+			"                    \"loadBalancerInboundNatRules\": [",
+			"                        \"RDP-web01\"",
+			"                    ],",
+			"                    \"subnet\": {",
+			"                        \"id\": \"\u003cResourceIdOfVirtualNetworkSubnet\u003e\"",
+			"                    },",
+			"                    \"privateIPAddress\": \"10.5.0.10\",",
+			"                    \"privateIPAllocationMethod\": \"Static\",",
+			"                    \"publicIPAddress\": {",
+			"                        \"id\": \"\u003cResourceIdOfPublicIpAddress\u003e\"",
+			"                    }",
+			"                }",
+			"            }",
+			"        ]",
+			"    }",
+			"      }"
+		],
+		"description":  "This snippet adds a Microsoft Azure Resource Manager (ARM) Network Interface resource."
+	},
+    "arm-json-networksecuritygroup":  {
+		"prefix":  "arm-json-networksecuritygroup",
+		"body":  [
+			"      {",
+			"          \"type\": \"Microsoft.Network/networkSecurityGroups\",",
+			"          \"apiVersion\": \"2016-03-30\",",
+			"          \"name\": \"ArtofShell-WebServers\",",
+			"          \"location\": \"West US\",",
+			"          \"properties\": {",
+			"              \"securityRules\": [",
+			"                  {",
+			"                      \"name\": \"InboundSSL\",",
+			"                      \"properties\": {",
+			"                          \"access\": \"Allow\",",
+			"                          \"description\": \"Rule Description goes here.\",",
+			"                          \"direction\": \"Inbound\",",
+			"                          \"priority\": 500,",
+			"                          \"protocol\": \"Tcp/Udp/*\",",
+			"                          \"sourceAddressPrefix\": \"*\",",
+			"                          \"destinationAddressPrefix\": \"10.5.0.0/24\",",
+			"                          \"destinationPortRange\": \"443\",",
+			"                          \"sourcePortRange\": \"*\"",
+			"                      }",
+			"                  }",
+			"              ]",
+			"          }",
+			"      }"
+		],
+		"description":  "This snippet adds a Microsoft Azure Resource Manager (ARM) Network Security Group (NSG) resource."
+	},
+    "arm-json-parameter":  {
+		"prefix":  "arm-json-parameter",
+		"body":  [
+			"      \"param1\": {",
+			"          \"allowedValues\": [",
+			"              \"\",",
+			"              \"\"",
+			"          ],",
+			"          \"defaultValue\": \"\",",
+			"          \"type\": \"string\",",
+			"          \"metadata\": {",
+			"              \"description\": \"\"",
+			"          },",
+			"          \"minLength\": 5,",
+			"          \"maxLength\": 10,",
+			"          \"minValue\": 5,",
+			"          \"maxValue\": 10",
+			"      }"
+		],
+		"description":  "This snippet adds a Microsoft Azure Resource Manager (ARM) JSON Template parameter."
+	},
+    "arm-json-publicipaddress":  {
+		"prefix":  "arm-json-publicipaddress",
+		"body":  [
+			"      {",
+			"          \"type\": \"Microsoft.Network/publicIPAddresses\",",
+			"          \"apiVersion\": \"2016-03-30\",",
+			"          \"location\": \"West US\",",
+			"          \"properties\": {",
+			"              \"publicIPAllocationMethod\": \"Dynamic\",",
+			"              \"dnsSettings\": {",
+			"                  \"domainNameLabel\": \"\",",
+			"                  \"reverseFqdn\": \"\"",
+			"              }",
+			"          }",
+			"      }"
+		],
+		"description":  "This snippet adds a Microsoft Azure Resource Manager (ARM) Public IP Address resource."
+	},
+    "arm-json-rediscache":  {
+		"prefix":  "arm-json-rediscache",
+		"body":  [
+			"      {",
+			"          \"type\": \"Microsoft.Cache/Redis\",",
+			"          \"apiVersion\": \"2015-08-01\",",
+			"          \"location\": \"West US\",",
+			"          \"name\": \"artofshell-redis\",",
+			"          \"properties\": {",
+			"              \"enableNonSslPort\": false,",
+			"              \"subnet\": \"\u003cSubnetNameInVirtualNetwork\u003e\",",
+			"              \"virtualNetwork\": \"\u003cNameOfVirtualNetworkInSameSubscriptionAndRegion-RequiresPremiumSku\u003e\",",
+			"              \"staticIP\": \"\u003cStaticIPAddress\u003e\",",
+			"              \"shardCount\": \"\u003cNumberOfShardsInCluster-RequiresPremiumSku\",",
+			"              \"sku\": {",
+			"                  \"capacity\": 1,",
+			"                  \"family\": \"C\",",
+			"                  \"name\": \"Basic\"",
+			"              }",
+			"          }",
+			"      }"
+		],
+		"description":  "This snippet adds a Microsoft Azure Resource Manager (ARM) Redis Cache resource to an ARM JSON Template."
+	},
+    "arm-json-variable":  {
+		"prefix":  "arm-json-variable",
+		"body":  [
+			"      \"VariableName\": {",
+			"          \"property1\": \"value1\",",
+			"          \"property2\": \"value2\"",
+			"      }"
+		],
+		"description":  "This snippet adds a Microsoft Azure Resource Manager (ARM) JSON Template variable."
+    },
+    "arm-json-virtualnetwork":  {
+		"prefix":  "arm-json-virtualnetwork",
+		"body":  [
+			"      {",
+			"          \"type\": \"Microsoft.Network/virtualNetworks\",",
+			"          \"apiVersion\": \"2016-03-30\",",
+			"          \"location\": \"West US\",",
+			"          \"name\": \"ArtofShellVNet\",",
+			"          \"properties\": {",
+			"              \"addressSpace\": {",
+			"                  \"addressPrefixes\": [",
+			"                      \"10.5.0.0/16\",",
+			"                      \"10.10.0.0/16\"",
+			"                  ]",
+			"              },",
+			"              \"dhcpOptions\": {",
+			"                  \"dnsServers\": [",
+			"                      \"8.8.8.8\",",
+			"                      \"8.8.4.4\"",
+			"                  ]",
+			"              },",
+			"              \"subnets\": [",
+			"                  {",
+			"                      \"name\": \"WebServers\",",
+			"                      \"properties\": {",
+			"                          \"addressPrefix\": \"10.5.0.0/24\",",
+			"                          \"networkSecurityGroup\": {",
+			"                              \"id\": \"\u003cResourceIdForNetworkSecurityGroup\u003e\"",
+			"                          },",
+			"                          \"routeTable\": {",
+			"                              \"id\": \"\u003cResourceIdForRouteTable\u003e\"",
+			"                          }",
+			"                      }",
+			"                  },",
+			"                  {",
+			"                      \"name\": \"DatabaseServers\",",
+			"                      \"properties\": {",
+			"                          \"addressPrefix\": \"10.10.0.0/24\"",
+			"                      }",
+			"                  }",
+			"              ]",
+			"          }",
+			"      }"
+		],
+		"description":  "This snippet adds a Microsoft Azure Resource Manager (ARM) Virtual Network resource."
+	}
+}

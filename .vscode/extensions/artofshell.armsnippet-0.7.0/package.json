@@ -1,0 +1,30 @@
+{
+	"name": "armsnippet",
+	"publisher": "artofshell",
+	"description": "Microsoft Azure Resource Manager (ARM) JSON Template snippets. Simplify cloud resource provisioning.",
+	"version": "0.7.0",
+	"icon": "images/artofshell-logo.svg",
+	"engines": {
+		"vscode": "0.10.x"
+	},
+	"categories": [
+		"Snippets"
+	],
+	"contributes": {
+		"snippets": [
+			{
+				"language": "json",
+				"path": "./snippets/json.json"
+			},
+			{
+				"language": "powershell",
+				"path": "./snippets/powershell.json"
+			}
+		]
+	},
+	"__metadata": {
+		"id": "0749aa52-5bcf-4a6e-a1d4-a2594bf25e42",
+		"publisherId": "ba386a41-d931-4836-86c2-bdb84376ab43",
+		"publisherDisplayName": "Art of Shell"
+	}
+}
